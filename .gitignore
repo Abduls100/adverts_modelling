@@ -8,4 +8,4 @@ logs/
 .venv/
 .user.yml
 dbt_packages/
-git_backup/git 
+git_backup/

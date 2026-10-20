@@ -1,0 +1,50 @@
+sources:
+  - name: facebook_ads
+    database: "{{ env_var('DATABRICKS_CATALOG') }}"
+    schema: ads_staging
+    description: data from facebook platform (static)
+    config:
+      enabled: true
+      meta:
+        owner: "@Data_Team"
+        freshness:
+          warn_after:
+          count: 2
+          period: day
+      
+    tables:
+      - name: campaigns
+        description: campaign data from facebook platform (static)
+        indentifier: raw_facebook_campaign
+        config:
+          enabled: true
+          event_time: campaign_updated_at
+
+      - name: adgroups
+        description: adgroup data from facebook platform (static)
+        indentifier: raw_facebook_adgroup
+        config:
+          enabled: true
+          event_time: adgroup_updated_at
+
+      - name: ads
+        description: ads data from facebook platform (static)
+        indentifier: raw_facebook_ads
+        config:
+          enabled: true
+          event_time: ad_updated_at
+
+      - name: ads_stats
+        description: ads stats data from facebook platform (static)
+        indentifier: raw_facebook_ads_stats
+        config:
+          enabled: true
+          event_time: stats_updated_at
+
+      - name: accounts
+        description: accounts data from facebook platform (static)
+        indentifier: raw_facebook_acccount
+        config:
+          enabled: true
+          event_time: account_updated_at
+

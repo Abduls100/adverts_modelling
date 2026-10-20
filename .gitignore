@@ -3,3 +3,9 @@ target/
 dbt_packages/
 logs/
 .env
+.user.yml
+.env.*
+.venv/
+.user.yml
+dbt_packages/
+git_backup/

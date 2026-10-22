@@ -31,22 +31,21 @@ clean-targets:         # directories to be removed by `dbt clean`
 # files using the `{{ config(...) }}` macro.
 models:
   ads_marketing:
-    # Config indicated by + and applies to all files under models/example/
     staging:
-      +catalog: adverts_bronze_production
+      +materialized: view
+      +database: adverts_bronze_production
       +schema: staging
-    
+
     intermediate:
       +materialized: table
-      +catalog: adverts_silver_production
+      +database: adverts_silver_production
       +schema: preparation
 
     marts:
       +materialized: table
-      +catalog: adverts_gold_production
+      +database: adverts_gold_production
       +schema: marketing_spend
 
-  #ELementary package models -> "elementary" schema in every environment.
-    elementary:
-    +catalog: ads_bronze_production
-    +schema: ads_staging
+  elementary:
+    +database: marketing_dev
+    +schema: elementary

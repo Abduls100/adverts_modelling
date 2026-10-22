@@ -21,45 +21,45 @@ ads_marketing:
       host: dbc-c627d95b-5077.cloud.databricks.com
       token: "{{ env_var('DATABRICKS_PAT_TOKEN') }}"
       http_path: /sql/1.0/warehouses/d3ba9200988ea21b
-      catalog: "{{ env_var('DATABRICKS_CATALOG') }}"
-      schema: "{{ env_var('DATABRICKS_SCHEMA') }}"
+      catalog: "{{ env_var('DEV_CATALOG') }}"
+      schema: "{{ env_var('DEV_SCHEMA') }}"
 
-  ci: &ci_service_account
+    ci: &ci_service_account
       <<: *base_auth
-      catalog: ci_development
-      schema: "{{ env_var('DATABRICKS_SCHEMA') }}"
-      host: dbc-c627d95b-5077.cloud.databricks.com
-      http_path: /sql/1.0/warehouses/d3ba9200988ea21b
+      catalog: 
+      schema: "{{ env_var('DEV_SCHEMA') }}"
+      host: 
+      http_path: 
   
-  staging: &staging_service_account
+    staging: &staging_service_account
       <<: *ci_service_account
-      catalog: gold_staging
-      schema: analytics
-      http_path: /sql/1.0/warehouses/d3ba9200988ea21b
+      catalog: 
+      schema: 
+      http_path: 
 
-  production: &production_service_account
+    production: &production_service_account
       <<: *base_auth
-      catalog: gold_production
-      schema: analytics
-      host: dbc-c627d95b-5077.cloud.databricks.com
-      http_path: /sql/1.0/warehouses/d3ba9200988ea21b
+      catalog: 
+      schema: 
+      host: 
+      http_path: 
 
 ## DATABRICKS ##
 ## By default, edr expects the profile name 'elementary'.      ##
 ## Configure the database and schema of elementary models.     ##
 ## Check where 'elementary_test_results' is to find it.        ##
 
-elementary:
-  target: "{{ env_var('DBT_TARGET', 'dev') }}"
-  outputs:
-    dev: 
-      <<: *dev_service_account
+  elementary:
+    target: "{{ env_var('DBT_TARGET', 'dev') }}"
+    outputs:
+      dev: 
+        <<: *dev_service_account
     
-    staging:
-      <<: *staging_service_account
-      schema: elementary
+      staging:
+        <<: *staging_service_account
+        schema: elementary
 
-    production:
-      <<: *production_service_account
-      catalog: 
-      schema: elementary
+      production: 
+        <<: *production_service_account
+        catalog: 
+        schema: elementary
